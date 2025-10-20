@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thuật toán SJF - Shortest Job First</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .input-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th {
+            background: #667eea;
+            color: white;
+            padding: 12px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .process-row {
+            transition: background 0.3s;
+        }
+
+        .process-row:hover {
+            background: #f0f0f0;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: #5568d3;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .gantt-chart {
+            margin: 30px 0;
+            padding: 20px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+
+        .gantt-title {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .gantt-container {
+            display: flex;
+            margin-bottom: 10px;
+            height: 60px;
+        }
+
+        .gantt-block {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            border-right: 2px solid white;
+            transition: all 0.5s;
+            position: relative;
+        }
+
+        .gantt-time {
+            display: flex;
+            position: relative;
+        }
+
+        .time-marker {
+            position: absolute;
+            font-size: 12px;
+            color: #666;
+            top: 5px;
+        }
+
+        .results {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .result-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .result-value {
+            font-size: 2em;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+
+        .result-label {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .step-info {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #2196f3;
+        }
+
+        .step-info h3 {
+            color: #1976d2;
+            margin-bottom: 10px;
+        }
+
+        .queue-display {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .queue-item {
+            background: #667eea;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        .current-process {
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .legend {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-color {
+            width: 30px;
+            height: 20px;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🔄 Thuật toán SJF</h1>
+        <p class="subtitle">Shortest Job First (Non-preemptive) Scheduling</p>
+
+        <div class="input-section">
+            <h2 style="color: #667eea; margin-bottom: 15px;">Nhập dữ liệu tiến trình</h2>
+            <div style="margin-bottom: 20px;">
+                <label style="display: block; margin-bottom: 10px; font-weight: 600;">Số lượng tiến trình:</label>
+                <input type="number" id="numProcesses" min="1" max="10" value="4" 
+                       style="padding: 8px; border: 2px solid #667eea; border-radius: 5px; width: 100px; font-size: 16px;"
+                       onchange="generateProcessInputs()">
+                <button onclick="generateProcessInputs()" 
+                        style="margin-left: 10px; padding: 8px 20px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer;">
+                    Tạo bảng
+                </button>
+            </div>
+
+            <table id="processTable">
+                <thead>
+                    <tr>
+                        <th>Tiến trình</th>
+                        <th>Arrival Time (AT)<br><span style="font-size: 0.9em;">Thời điểm đến</span></th>
+                        <th>Burst Time (BT)<br><span style="font-size: 0.9em;">Thời gian xử lý</span></th>
+                    </tr>
+                </thead>
+                <tbody id="processTableBody">
+                    <tr class="process-row">
+                        <td>P1</td>
+                        <td><input type="number" class="at-input" min="0" value="0" style="width: 80px; padding: 5px; text-align: center; border: 1px solid #ddd; border-radius: 4px;"></td>
+                        <td><input type="number" class="bt-input" min="1" value="8" style="width: 80px; padding: 5px; text-align: center; border: 1px solid #ddd; border-radius: 4px;"></td>
+                    </tr>
+                    <tr class="process-row">
+                        <td>P2</td>
+                        <td><input type="number" class="at-input" min="0" value="2" style="width: 80px; padding: 5px; text-align: center; border: 1px solid #ddd; border-radius: 4px;"></td>
+                        <td><input type="number" class="bt-input" min="1" value="4" style="width: 80px; padding: 5px; text-align: center; border: 1px solid #ddd; border-radius: 4px;"></td>
+                    </tr>
+                    <tr class="process-row">
+                        <td>P3</td>
+                        <td><input type="number" class="at-input" min="0" value="4" style="width: 80px; padding: 5px; text-align: center; border: 1px solid #ddd; border-radius: 4px;"></td>
+                        <td><input type="number" class="bt-input" min="1" value="1" style="width: 80px; padding: 5px; text-align: center; border: 1px solid #ddd; border-radius: 4px;"></td>
+                    </tr>
+                    <tr class="process-row">
+                        <td>P4</td>
+                        <td><input type="number" class="at-input" min="0" value="5" style="width: 80px; padding: 5px; text-align: center; border: 1px solid #ddd; border-radius: 4px;"></td>
+                        <td><input type="number" class="bt-input" min="1" value="4" style="width: 80px; padding: 5px; text-align: center; border: 1px solid #ddd; border-radius: 4px;"></td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="controls">
+                <button id="startBtn" onclick="startSimulation()">▶ Bắt đầu mô phỏng</button>
+                <button id="stepBtn" onclick="nextStep()" disabled>➡ Bước tiếp theo</button>
+                <button id="resetBtn" onclick="resetSimulation()">🔄 Làm lại</button>
+            </div>
+        </div>
+
+        <div class="step-info" id="stepInfo" style="display: none;">
+            <h3>Bước hiện tại:</h3>
+            <p id="stepDescription"></p>
+            <div class="queue-display" id="queueDisplay"></div>
+        </div>
+
+        <div class="gantt-chart" id="ganttChart" style="display: none;">
+            <div class="gantt-title">📊 Biểu đồ Gantt</div>
+            <div class="gantt-container" id="ganttContainer"></div>
+            <div class="gantt-time" id="ganttTime"></div>
+            
+            <div class="legend" id="legendContainer">
+            </div>
+        </div>
+
+        <div class="results" id="results" style="display: none;">
+            <div class="result-card">
+                <div class="result-label">Thời gian chờ trung bình</div>
+                <div class="result-value" id="avgWaitingTime">0</div>
+            </div>
+            <div class="result-card">
+                <div class="result-label">Thời gian hoàn thành trung bình</div>
+                <div class="result-value" id="avgTurnaroundTime">0</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let processes = [];
+        let currentTime = 0;
+        let completed = [];
+        let ganttChart = [];
+        let readyQueue = [];
+        let isRunning = false;
+        let currentStep = 0;
+
+        const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#95e1d3', '#f38181', '#aa96da', '#fcbad3', '#a8e6cf', '#ffd3b6'];
+
+        // Khởi tạo bảng mặc định
+        window.onload = function() {
+            generateProcessInputs();
+        };
+
+        function generateProcessInputs() {
+            const numProcesses = parseInt(document.getElementById('numProcesses').value);
+            const tbody = document.getElementById('processTableBody');
+            tbody.innerHTML = '';
+
+            for (let i = 0; i < numProcesses; i++) {
+                const row = document.createElement('tr');
+                row.className = 'process-row';
+                row.innerHTML = `
+                    <td>P${i + 1}</td>
+                    <td><input type="number" class="at-input" min="0" value="${i === 0 ? 0 : ''}" 
+                               style="width: 80px; padding: 5px; text-align: center; border: 1px solid #ddd; border-radius: 4px;" 
+                               placeholder="0"></td>
+                    <td><input type="number" class="bt-input" min="1" value="" 
+                               style="width: 80px; padding: 5px; text-align: center; border: 1px solid #ddd; border-radius: 4px;" 
+                               placeholder="1"></td>
+                `;
+                tbody.appendChild(row);
+            }
+        }
+
+        function readProcessesFromInput() {
+            processes = [];
+            const atInputs = document.querySelectorAll('.at-input');
+            const btInputs = document.querySelectorAll('.bt-input');
+
+            for (let i = 0; i < atInputs.length; i++) {
+                const at = parseInt(atInputs[i].value) || 0;
+                const bt = parseInt(btInputs[i].value);
+
+                if (!bt || bt <= 0) {
+                    alert(`Vui lòng nhập Burst Time hợp lệ cho P${i + 1} (phải > 0)`);
+                    return false;
+                }
+
+                processes.push({
+                    id: `P${i + 1}`,
+                    at: at,
+                    bt: bt,
+                    color: colors[i % colors.length]
+                });
+            }
+            return true;
+        }
+
+        function startSimulation() {
+            if (!readProcessesFromInput()) {
+                return;
+            }
+
+            // Disable inputs
+            document.querySelectorAll('.at-input, .bt-input').forEach(input => {
+                input.disabled = true;
+            });
+            document.getElementById('numProcesses').disabled = true;
+            document.getElementById('startBtn').disabled = true;
+            document.getElementById('stepBtn').disabled = false;
+            document.getElementById('stepInfo').style.display = 'block';
+            document.getElementById('ganttChart').style.display = 'block';
+            isRunning = true;
+            currentTime = 0;
+            completed = [];
+            ganttChart = [];
+            currentStep = 0;
+            
+            updateLegend();
+            updateStepInfo("Bắt đầu thuật toán SJF. Nhấn 'Bước tiếp theo' để xem từng bước.");
+        }
+
+        function updateLegend() {
+            const legendContainer = document.getElementById('legendContainer');
+            legendContainer.innerHTML = '';
+
+            processes.forEach((p, index) => {
+                const item = document.createElement('div');
+                item.className = 'legend-item';
+                item.innerHTML = `
+                    <div class="legend-color" style="background: ${p.color};"></div>
+                    <span>${p.id}</span>
+                `;
+                legendContainer.appendChild(item);
+            });
+        }
+
+        function nextStep() {
+            if (completed.length === processes.length) {
+                finishSimulation();
+                return;
+            }
+
+            // Thêm các tiến trình đã đến vào hàng đợi
+            readyQueue = processes.filter(p => 
+                p.at <= currentTime && !completed.find(c => c.id === p.id)
+            );
+
+            if (readyQueue.length === 0) {
+                currentTime++;
+                updateStepInfo(`Thời gian ${currentTime}: Không có tiến trình nào trong hàng đợi. Chờ tiến trình tiếp theo.`);
+                updateGanttChart();
+                return;
+            }
+
+            // Chọn tiến trình có burst time ngắn nhất
+            readyQueue.sort((a, b) => a.bt - b.bt);
+            let selectedProcess = readyQueue[0];
+
+            let startTime = currentTime;
+            currentTime += selectedProcess.bt;
+            let finishTime = currentTime;
+            let turnaroundTime = finishTime - selectedProcess.at;
+            let waitingTime = turnaroundTime - selectedProcess.bt;
+
+            ganttChart.push({
+                id: selectedProcess.id,
+                start: startTime,
+                end: finishTime,
+                color: selectedProcess.color
+            });
+
+            completed.push({
+                id: selectedProcess.id,
+                wt: waitingTime,
+                tat: turnaroundTime
+            });
+
+            updateStepInfo(`Thực thi ${selectedProcess.id} từ thời gian ${startTime} đến ${finishTime}. 
+                Burst Time = ${selectedProcess.bt}, Waiting Time = ${waitingTime}, Turnaround Time = ${turnaroundTime}`);
+            updateGanttChart();
+            updateQueue();
+        }
+
+        function updateStepInfo(message) {
+            document.getElementById('stepDescription').innerHTML = message;
+        }
+
+        function updateQueue() {
+            let queueDisplay = document.getElementById('queueDisplay');
+            queueDisplay.innerHTML = '<strong>Hàng đợi sẵn sàng:</strong> ';
+            
+            let remaining = processes.filter(p => !completed.find(c => c.id === p.id) && p.at <= currentTime);
+            remaining.sort((a, b) => a.bt - b.bt);
+            
+            remaining.forEach(p => {
+                let item = document.createElement('div');
+                item.className = 'queue-item';
+                item.textContent = `${p.id} (BT=${p.bt})`;
+                queueDisplay.appendChild(item);
+            });
+
+            if (remaining.length === 0) {
+                queueDisplay.innerHTML += '<span style="color: #999;">Trống</span>';
+            }
+        }
+
+        function updateGanttChart() {
+            let container = document.getElementById('ganttContainer');
+            let timeMarkers = document.getElementById('ganttTime');
+            
+            container.innerHTML = '';
+            timeMarkers.innerHTML = '';
+
+            let totalTime = Math.max(...ganttChart.map(g => g.end), currentTime);
+            let blockWidth = 100 / totalTime;
+
+            ganttChart.forEach(block => {
+                let div = document.createElement('div');
+                div.className = 'gantt-block';
+                div.style.width = (block.end - block.start) * blockWidth + '%';
+                div.style.background = block.color;
+                div.textContent = block.id;
+                container.appendChild(div);
+            });
+
+            // Thêm time markers
+            for (let i = 0; i <= totalTime; i++) {
+                let marker = document.createElement('div');
+                marker.className = 'time-marker';
+                marker.style.left = (i * blockWidth) + '%';
+                marker.textContent = i;
+                timeMarkers.appendChild(marker);
+            }
+        }
+
+        function finishSimulation() {
+            document.getElementById('stepBtn').disabled = true;
+            document.getElementById('results').style.display = 'grid';
+
+            let totalWaitingTime = completed.reduce((sum, p) => sum + p.wt, 0);
+            let totalTurnaroundTime = completed.reduce((sum, p) => sum + p.tat, 0);
+
+            document.getElementById('avgWaitingTime').textContent = 
+                (totalWaitingTime / processes.length).toFixed(2);
+            document.getElementById('avgTurnaroundTime').textContent = 
+                (totalTurnaroundTime / processes.length).toFixed(2);
+
+            updateStepInfo('✅ Hoàn thành! Tất cả tiến trình đã được xử lý.');
+        }
+
+        function resetSimulation() {
+            currentTime = 0;
+            completed = [];
+            ganttChart = [];
+            readyQueue = [];
+            isRunning = false;
+            currentStep = 0;
+
+            // Enable inputs
+            document.querySelectorAll('.at-input, .bt-input').forEach(input => {
+                input.disabled = false;
+            });
+            document.getElementById('numProcesses').disabled = false;
+
+            document.getElementById('startBtn').disabled = false;
+            document.getElementById('stepBtn').disabled = true;
+            document.getElementById('stepInfo').style.display = 'none';
+            document.getElementById('ganttChart').style.display = 'none';
+            document.getElementById('results').style.display = 'none';
+            document.getElementById('ganttContainer').innerHTML = '';
+            document.getElementById('ganttTime').innerHTML = '';
+        }
+    </script>
+</body>
+</html>
