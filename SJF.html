@@ -15,7 +15,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 20px;
+            padding: 10px;
         }
 
         .container {
@@ -23,7 +23,7 @@
             margin: 0 auto;
             background: white;
             border-radius: 20px;
-            padding: 30px;
+            padding: 20px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
 
@@ -31,41 +31,93 @@
             text-align: center;
             color: #667eea;
             margin-bottom: 10px;
-            font-size: 2.5em;
+            font-size: 2em;
         }
 
         .subtitle {
             text-align: center;
             color: #666;
-            margin-bottom: 30px;
-            font-size: 1.1em;
+            margin-bottom: 20px;
+            font-size: 1em;
+            line-height: 1.4;
         }
 
         .input-section {
             background: #f8f9fa;
-            padding: 20px;
+            padding: 15px;
             border-radius: 10px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+        }
+
+        .input-section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 0.95em;
+        }
+
+        .input-group input {
+            padding: 8px;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            width: 80px;
+            font-size: 16px;
+        }
+
+        .input-group button {
+            margin-left: 10px;
+            padding: 8px 20px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 15px;
         }
 
         table {
             width: 100%;
+            min-width: 400px;
             border-collapse: collapse;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         th {
             background: #667eea;
             color: white;
-            padding: 12px;
+            padding: 10px 8px;
             text-align: center;
             font-weight: 600;
+            font-size: 0.9em;
+        }
+
+        th span {
+            display: block;
+            font-size: 0.85em;
+            margin-top: 3px;
         }
 
         td {
-            padding: 10px;
+            padding: 8px;
             text-align: center;
             border-bottom: 1px solid #ddd;
+            font-size: 0.9em;
         }
 
         .process-row {
@@ -76,23 +128,34 @@
             background: #f0f0f0;
         }
 
+        td input {
+            width: 70px;
+            padding: 5px;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
         .controls {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             justify-content: center;
-            margin-top: 20px;
+            margin-top: 15px;
+            flex-wrap: wrap;
         }
 
         button {
             background: #667eea;
             color: white;
             border: none;
-            padding: 12px 30px;
+            padding: 10px 20px;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 14px;
             font-weight: 600;
             transition: all 0.3s;
+            white-space: nowrap;
         }
 
         button:hover {
@@ -107,25 +170,35 @@
             transform: none;
         }
 
+        button:active {
+            transform: translateY(0);
+        }
+
         .gantt-chart {
-            margin: 30px 0;
-            padding: 20px;
+            margin: 20px 0;
+            padding: 15px;
             background: #f8f9fa;
             border-radius: 10px;
         }
 
         .gantt-title {
-            font-size: 1.5em;
+            font-size: 1.3em;
             font-weight: 600;
             color: #333;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             text-align: center;
+        }
+
+        .gantt-scroll {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
         }
 
         .gantt-container {
             display: flex;
             margin-bottom: 10px;
-            height: 60px;
+            height: 50px;
+            min-width: 300px;
         }
 
         .gantt-block {
@@ -137,63 +210,73 @@
             border-right: 2px solid white;
             transition: all 0.5s;
             position: relative;
+            font-size: 13px;
         }
 
         .gantt-time {
             display: flex;
             position: relative;
+            height: 25px;
+            min-width: 300px;
         }
 
         .time-marker {
             position: absolute;
-            font-size: 12px;
+            font-size: 11px;
             color: #666;
             top: 5px;
         }
 
         .results {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
         }
 
         .result-card {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 20px;
+            padding: 15px;
             border-radius: 10px;
             text-align: center;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         .result-value {
-            font-size: 2em;
+            font-size: 1.8em;
             font-weight: 700;
-            margin-top: 10px;
+            margin-top: 8px;
         }
 
         .result-label {
-            font-size: 0.9em;
+            font-size: 0.85em;
             opacity: 0.9;
+            line-height: 1.3;
         }
 
         .step-info {
             background: #e3f2fd;
-            padding: 15px;
+            padding: 12px;
             border-radius: 8px;
-            margin: 20px 0;
+            margin: 15px 0;
             border-left: 4px solid #2196f3;
         }
 
         .step-info h3 {
             color: #1976d2;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        .step-info p {
+            font-size: 0.9em;
+            line-height: 1.5;
         }
 
         .queue-display {
             display: flex;
-            gap: 10px;
+            gap: 8px;
             flex-wrap: wrap;
             margin-top: 10px;
         }
@@ -201,9 +284,10 @@
         .queue-item {
             background: #667eea;
             color: white;
-            padding: 8px 15px;
+            padding: 6px 12px;
             border-radius: 5px;
             font-weight: 600;
+            font-size: 0.85em;
         }
 
         .current-process {
@@ -217,22 +301,177 @@
 
         .legend {
             display: flex;
-            gap: 20px;
+            gap: 15px;
             justify-content: center;
-            margin-top: 20px;
+            margin-top: 15px;
             flex-wrap: wrap;
         }
 
         .legend-item {
             display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 6px;
+            font-size: 0.9em;
         }
 
         .legend-color {
-            width: 30px;
-            height: 20px;
+            width: 25px;
+            height: 18px;
             border-radius: 4px;
+        }
+
+        /* Mobile specific styles */
+        @media (max-width: 768px) {
+            body {
+                padding: 5px;
+            }
+
+            .container {
+                padding: 15px;
+                border-radius: 15px;
+            }
+
+            h1 {
+                font-size: 1.5em;
+                margin-bottom: 8px;
+            }
+
+            .subtitle {
+                font-size: 0.9em;
+                margin-bottom: 15px;
+            }
+
+            .input-section {
+                padding: 12px;
+            }
+
+            .input-section h2 {
+                font-size: 1.1em;
+            }
+
+            .input-group {
+                margin-bottom: 12px;
+            }
+
+            .input-group input {
+                width: 70px;
+                padding: 6px;
+                font-size: 14px;
+            }
+
+            .input-group button {
+                padding: 6px 15px;
+                font-size: 13px;
+            }
+
+            table {
+                min-width: 350px;
+            }
+
+            th {
+                padding: 8px 5px;
+                font-size: 0.8em;
+            }
+
+            td {
+                padding: 6px 4px;
+                font-size: 0.85em;
+            }
+
+            td input {
+                width: 60px;
+                padding: 4px;
+                font-size: 13px;
+            }
+
+            button {
+                padding: 8px 15px;
+                font-size: 13px;
+            }
+
+            .gantt-title {
+                font-size: 1.1em;
+            }
+
+            .gantt-container {
+                height: 45px;
+            }
+
+            .gantt-block {
+                font-size: 12px;
+            }
+
+            .result-card {
+                padding: 12px;
+            }
+
+            .result-value {
+                font-size: 1.5em;
+            }
+
+            .result-label {
+                font-size: 0.8em;
+            }
+
+            .step-info h3 {
+                font-size: 1em;
+            }
+
+            .step-info p {
+                font-size: 0.85em;
+            }
+
+            .queue-item {
+                padding: 5px 10px;
+                font-size: 0.8em;
+            }
+
+            .legend {
+                gap: 10px;
+            }
+
+            .legend-item {
+                font-size: 0.85em;
+            }
+
+            .legend-color {
+                width: 22px;
+                height: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 1.3em;
+            }
+
+            .subtitle {
+                font-size: 0.85em;
+            }
+
+            .controls {
+                gap: 6px;
+            }
+
+            button {
+                padding: 8px 12px;
+                font-size: 12px;
+            }
+
+            .results {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Improve touch targets */
+        @media (hover: none) {
+            button {
+                min-height: 44px;
+            }
+
+            input {
+                min-height: 38px;
+            }
         }
     </style>
 </head>
@@ -242,53 +481,31 @@
         <p class="subtitle">Shortest Job First (Non-preemptive) Scheduling</p>
 
         <div class="input-section">
-            <h2 style="color: #667eea; margin-bottom: 15px;">Nhập dữ liệu tiến trình</h2>
-            <div style="margin-bottom: 20px;">
-                <label style="display: block; margin-bottom: 10px; font-weight: 600;">Số lượng tiến trình:</label>
+            <h2>Nhập dữ liệu tiến trình</h2>
+            <div class="input-group">
+                <label>Số lượng tiến trình:</label>
                 <input type="number" id="numProcesses" min="1" max="10" value="4" 
-                       style="padding: 8px; border: 2px solid #667eea; border-radius: 5px; width: 100px; font-size: 16px;"
                        onchange="generateProcessInputs()">
-                <button onclick="generateProcessInputs()" 
-                        style="margin-left: 10px; padding: 8px 20px; background: #667eea; color: white; border: none; border-radius: 5px; cursor: pointer;">
-                    Tạo bảng
-                </button>
+                <button onclick="generateProcessInputs()">Tạo bảng</button>
             </div>
 
-            <table id="processTable">
-                <thead>
-                    <tr>
-                        <th>Tiến trình</th>
-                        <th>Arrival Time (AT)<br><span style="font-size: 0.9em;">Thời điểm đến</span></th>
-                        <th>Burst Time (BT)<br><span style="font-size: 0.9em;">Thời gian xử lý</span></th>
-                    </tr>
-                </thead>
-                <tbody id="processTableBody">
-                    <tr class="process-row">
-                        <td>P1</td>
-                        <td><input type="number" class="at-input" min="0" value="0" style="width: 80px; padding: 5px; text-align: center; border: 1px solid #ddd; border-radius: 4px;"></td>
-                        <td><input type="number" class="bt-input" min="1" value="8" style="width: 80px; padding: 5px; text-align: center; border: 1px solid #ddd; border-radius: 4px;"></td>
-                    </tr>
-                    <tr class="process-row">
-                        <td>P2</td>
-                        <td><input type="number" class="at-input" min="0" value="2" style="width: 80px; padding: 5px; text-align: center; border: 1px solid #ddd; border-radius: 4px;"></td>
-                        <td><input type="number" class="bt-input" min="1" value="4" style="width: 80px; padding: 5px; text-align: center; border: 1px solid #ddd; border-radius: 4px;"></td>
-                    </tr>
-                    <tr class="process-row">
-                        <td>P3</td>
-                        <td><input type="number" class="at-input" min="0" value="4" style="width: 80px; padding: 5px; text-align: center; border: 1px solid #ddd; border-radius: 4px;"></td>
-                        <td><input type="number" class="bt-input" min="1" value="1" style="width: 80px; padding: 5px; text-align: center; border: 1px solid #ddd; border-radius: 4px;"></td>
-                    </tr>
-                    <tr class="process-row">
-                        <td>P4</td>
-                        <td><input type="number" class="at-input" min="0" value="5" style="width: 80px; padding: 5px; text-align: center; border: 1px solid #ddd; border-radius: 4px;"></td>
-                        <td><input type="number" class="bt-input" min="1" value="4" style="width: 80px; padding: 5px; text-align: center; border: 1px solid #ddd; border-radius: 4px;"></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="table-container">
+                <table id="processTable">
+                    <thead>
+                        <tr>
+                            <th>Tiến trình</th>
+                            <th>Arrival Time (AT)<span>Thời điểm đến</span></th>
+                            <th>Burst Time (BT)<span>Thời gian xử lý</span></th>
+                        </tr>
+                    </thead>
+                    <tbody id="processTableBody">
+                    </tbody>
+                </table>
+            </div>
 
             <div class="controls">
-                <button id="startBtn" onclick="startSimulation()">▶ Bắt đầu mô phỏng</button>
-                <button id="stepBtn" onclick="nextStep()" disabled>➡ Bước tiếp theo</button>
+                <button id="startBtn" onclick="startSimulation()">▶ Bắt đầu</button>
+                <button id="stepBtn" onclick="nextStep()" disabled>➡ Tiếp theo</button>
                 <button id="resetBtn" onclick="resetSimulation()">🔄 Làm lại</button>
             </div>
         </div>
@@ -301,11 +518,11 @@
 
         <div class="gantt-chart" id="ganttChart" style="display: none;">
             <div class="gantt-title">📊 Biểu đồ Gantt</div>
-            <div class="gantt-container" id="ganttContainer"></div>
-            <div class="gantt-time" id="ganttTime"></div>
-            
-            <div class="legend" id="legendContainer">
+            <div class="gantt-scroll">
+                <div class="gantt-container" id="ganttContainer"></div>
+                <div class="gantt-time" id="ganttTime"></div>
             </div>
+            <div class="legend" id="legendContainer"></div>
         </div>
 
         <div class="results" id="results" style="display: none;">
@@ -331,7 +548,6 @@
 
         const colors = ['#ff6b6b', '#4ecdc4', '#45b7d1', '#f9ca24', '#95e1d3', '#f38181', '#aa96da', '#fcbad3', '#a8e6cf', '#ffd3b6'];
 
-        // Khởi tạo bảng mặc định
         window.onload = function() {
             generateProcessInputs();
         };
@@ -341,17 +557,21 @@
             const tbody = document.getElementById('processTableBody');
             tbody.innerHTML = '';
 
+            const defaultValues = [
+                {at: 0, bt: 8},
+                {at: 2, bt: 4},
+                {at: 4, bt: 1},
+                {at: 5, bt: 4}
+            ];
+
             for (let i = 0; i < numProcesses; i++) {
                 const row = document.createElement('tr');
                 row.className = 'process-row';
+                const defaultVal = defaultValues[i] || {at: '', bt: ''};
                 row.innerHTML = `
                     <td>P${i + 1}</td>
-                    <td><input type="number" class="at-input" min="0" value="${i === 0 ? 0 : ''}" 
-                               style="width: 80px; padding: 5px; text-align: center; border: 1px solid #ddd; border-radius: 4px;" 
-                               placeholder="0"></td>
-                    <td><input type="number" class="bt-input" min="1" value="" 
-                               style="width: 80px; padding: 5px; text-align: center; border: 1px solid #ddd; border-radius: 4px;" 
-                               placeholder="1"></td>
+                    <td><input type="number" class="at-input" min="0" value="${defaultVal.at}" placeholder="0"></td>
+                    <td><input type="number" class="bt-input" min="1" value="${defaultVal.bt}" placeholder="1"></td>
                 `;
                 tbody.appendChild(row);
             }
@@ -386,7 +606,6 @@
                 return;
             }
 
-            // Disable inputs
             document.querySelectorAll('.at-input, .bt-input').forEach(input => {
                 input.disabled = true;
             });
@@ -402,7 +621,7 @@
             currentStep = 0;
             
             updateLegend();
-            updateStepInfo("Bắt đầu thuật toán SJF. Nhấn 'Bước tiếp theo' để xem từng bước.");
+            updateStepInfo("Bắt đầu thuật toán SJF. Nhấn 'Tiếp theo' để xem từng bước.");
         }
 
         function updateLegend() {
@@ -426,7 +645,6 @@
                 return;
             }
 
-            // Thêm các tiến trình đã đến vào hàng đợi
             readyQueue = processes.filter(p => 
                 p.at <= currentTime && !completed.find(c => c.id === p.id)
             );
@@ -438,7 +656,6 @@
                 return;
             }
 
-            // Chọn tiến trình có burst time ngắn nhất
             readyQueue.sort((a, b) => a.bt - b.bt);
             let selectedProcess = readyQueue[0];
 
@@ -497,7 +714,14 @@
             container.innerHTML = '';
             timeMarkers.innerHTML = '';
 
+            if (ganttChart.length === 0) return;
+
             let totalTime = Math.max(...ganttChart.map(g => g.end), currentTime);
+            let minWidth = Math.max(300, totalTime * 30);
+            
+            container.style.minWidth = minWidth + 'px';
+            timeMarkers.style.minWidth = minWidth + 'px';
+            
             let blockWidth = 100 / totalTime;
 
             ganttChart.forEach(block => {
@@ -509,7 +733,6 @@
                 container.appendChild(div);
             });
 
-            // Thêm time markers
             for (let i = 0; i <= totalTime; i++) {
                 let marker = document.createElement('div');
                 marker.className = 'time-marker';
@@ -542,7 +765,6 @@
             isRunning = false;
             currentStep = 0;
 
-            // Enable inputs
             document.querySelectorAll('.at-input, .bt-input').forEach(input => {
                 input.disabled = false;
             });
