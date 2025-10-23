@@ -1,18 +1,436 @@
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-  <meta charset="UTF-8">
-  <title>Thuật toán lập lịch CPU</title>
-  <style>
-    body { font-family: sans-serif; text-align: center; margin-top: 100px; }
-    a { display: block; margin: 20px auto; padding: 10px 20px; width: 250px;
-        background: #007bff; color: white; text-decoration: none; border-radius: 8px; }
-    a:hover { background: #0056b3; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CPU Scheduling Algorithms - SJF & SRTN</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            padding: 50px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            animation: fadeIn 0.6s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            text-align: center;
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 3em;
+            font-weight: 700;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 50px;
+            font-size: 1.2em;
+            line-height: 1.6;
+        }
+
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.4s ease;
+            cursor: pointer;
+            border: 3px solid transparent;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: 0;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.4);
+            border-color: #667eea;
+        }
+
+        .card-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .card:hover .card-content * {
+            color: white !important;
+        }
+
+        .card-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            transition: transform 0.4s ease;
+        }
+
+        .card:hover .card-icon {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        .card-title {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 15px;
+            transition: color 0.4s ease;
+        }
+
+        .card-description {
+            color: #666;
+            font-size: 1em;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            transition: color 0.4s ease;
+        }
+
+        .card-features {
+            text-align: left;
+            margin: 20px 0;
+            padding: 0 10px;
+        }
+
+        .card-features li {
+            color: #555;
+            margin: 8px 0;
+            font-size: 0.9em;
+            transition: color 0.4s ease;
+        }
+
+        .card-features li::before {
+            content: "✓ ";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 5px;
+        }
+
+        .card:hover .card-features li::before {
+            color: #fff;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            border: 2px solid #667eea;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            background: #5568d3;
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .card:hover .btn {
+            background: white;
+            color: #667eea;
+            border-color: white;
+        }
+
+        .comparison-section {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            margin-top: 40px;
+        }
+
+        .comparison-section h2 {
+            color: #667eea;
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+        }
+
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .comparison-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .comparison-table td {
+            padding: 15px;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .comparison-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .check {
+            color: #4caf50;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .cross {
+            color: #f44336;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 20px;
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+
+            .cards-container {
+                grid-template-columns: 1fr;
+            }
+
+            .comparison-table {
+                font-size: 0.9em;
+            }
+
+            .comparison-table th,
+            .comparison-table td {
+                padding: 10px;
+            }
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            margin: 5px;
+        }
+
+        .badge-non-preemptive {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .badge-preemptive {
+            background: #fff3e0;
+            color: #f57c00;
+        }
+    </style>
 </head>
 <body>
-  <h1>Thuật toán Lập lịch CPU</h1>
-  <a href="SJF.html">Xem mô phỏng SJF (Không ưu tiên)</a>
-  <a href="SRTN.html">Xem mô phỏng SRTN (Có ưu tiên)</a>
+    <div class="container">
+        <h1>⚙️ CPU Scheduling Algorithms</h1>
+        <p class="subtitle">
+            Mô phỏng trực quan các thuật toán lập lịch CPU<br>
+            Shortest Job First (SJF) & Shortest Remaining Time Next (SRTN)
+        </p>
+
+        <div class="cards-container">
+            <div class="card" onclick="navigateToSJF()">
+                <div class="card-content">
+                    <div class="card-icon">🔄</div>
+                    <h2 class="card-title">SJF Algorithm</h2>
+                    <span class="badge badge-non-preemptive">Non-Preemptive</span>
+                    <p class="card-description">
+                        Shortest Job First - Chọn tiến trình có thời gian xử lý ngắn nhất
+                    </p>
+                    <ul class="card-features">
+                        <li>Thuật toán không gián đoạn</li>
+                        <li>Chọn process có Burst Time nhỏ nhất</li>
+                        <li>Tối ưu cho batch systems</li>
+                        <li>Giảm thời gian chờ trung bình</li>
+                        <li>Mô phỏng từng bước chi tiết</li>
+                    </ul>
+                    <a href="https://cth05.github.io/SJF-SRTN/SJF.html" class="btn">Khám phá SJF →</a>
+                </div>
+            </div>
+
+            <div class="card" onclick="navigateToSRTN()">
+                <div class="card-content">
+                    <div class="card-icon">⚡</div>
+                    <h2 class="card-title">SRTN Algorithm</h2>
+                    <span class="badge badge-preemptive">Preemptive</span>
+                    <p class="card-description">
+                        Shortest Remaining Time Next - Phiên bản gián đoạn của SJF
+                    </p>
+                    <ul class="card-features">
+                        <li>Thuật toán có gián đoạn (Preemptive)</li>
+                        <li>Chọn process có Remaining Time nhỏ nhất</li>
+                        <li>Tối ưu cho time-sharing systems</li>
+                        <li>Tối ưu hóa thời gian chờ tối đa</li>
+                        <li>Hiển thị preemption và context switch</li>
+                    </ul>
+                    <a href="https://cth05.github.io/SJF-SRTN/SRTN.html" class="btn">Khám phá SRTN →</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="comparison-section">
+            <h2>📊 So sánh SJF vs SRTN</h2>
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Đặc điểm</th>
+                        <th>SJF</th>
+                        <th>SRTN</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Loại</strong></td>
+                        <td>Non-Preemptive</td>
+                        <td>Preemptive</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tiêu chí chọn</strong></td>
+                        <td>Burst Time ngắn nhất</td>
+                        <td>Remaining Time ngắn nhất</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Gián đoạn tiến trình</strong></td>
+                        <td><span class="cross">✗</span></td>
+                        <td><span class="check">✓</span></td>
+                    </tr>
+                    <tr>
+                        <td><strong>Context Switch</strong></td>
+                        <td>Ít</td>
+                        <td>Nhiều hơn</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Thời gian chờ trung bình</strong></td>
+                        <td>Tối ưu (trong non-preemptive)</td>
+                        <td>Tối ưu nhất (trong tất cả)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Độ phức tạp</strong></td>
+                        <td>Đơn giản</td>
+                        <td>Phức tạp hơn</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Ứng dụng</strong></td>
+                        <td>Batch systems</td>
+                        <td>Time-sharing systems</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Starvation</strong></td>
+                        <td>Có thể xảy ra</td>
+                        <td>Có thể xảy ra</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer">
+            <p>💡 Developed for CPU Scheduling Algorithm Visualization</p>
+            <p style="margin-top: 10px;">© 2025 - Interactive Learning Tool</p>
+        </div>
+    </div>
+
+    <script>
+        function navigateToSJF() {
+            window.location.href = 'https://cth05.github.io/SJF-SRTN/SJF.html';
+        }
+
+        function navigateToSRTN() {
+            window.location.href = 'https://cth05.github.io/SJF-SRTN/SRTN.html';
+        }
+
+        // Add keyboard shortcuts
+        document.addEventListener('keydown', function(e) {
+            if (e.key === '1') {
+                navigateToSJF();
+            } else if (e.key === '2') {
+                navigateToSRTN();
+            }
+        });
+
+        // Add entrance animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(30px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.6s ease-out';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+        });
+    </script>
 </body>
 </html>
