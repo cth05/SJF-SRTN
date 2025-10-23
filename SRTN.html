@@ -15,99 +15,80 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 10px;
+            padding: 20px;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
             background: white;
-            border-radius: 15px;
-            padding: 15px;
+            border-radius: 20px;
+            padding: 30px;
             box-shadow: 0 20px 60px rgba(0,0,0,0.3);
         }
 
         h1 {
             text-align: center;
             color: #667eea;
-            margin-bottom: 8px;
-            font-size: clamp(1.5em, 5vw, 2.5em);
+            margin-bottom: 10px;
+            font-size: 2.5em;
         }
 
         .subtitle {
             text-align: center;
             color: #666;
-            margin-bottom: 20px;
-            font-size: clamp(0.9em, 3vw, 1.1em);
+            margin-bottom: 30px;
+            font-size: 1.1em;
         }
 
         .input-section {
             background: #f8f9fa;
-            padding: 15px;
+            padding: 20px;
             border-radius: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
         }
 
         .input-section h2 {
             color: #667eea;
             margin-bottom: 15px;
-            font-size: clamp(1.1em, 4vw, 1.3em);
         }
 
         .input-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
 
         .input-group label {
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             font-weight: 600;
-            font-size: clamp(0.9em, 3vw, 1em);
         }
 
         .input-group input {
-            padding: 10px;
+            padding: 8px;
             border: 2px solid #667eea;
             border-radius: 5px;
-            width: 100%;
-            max-width: 120px;
+            width: 100px;
             font-size: 16px;
-        }
-
-        .input-flex {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            align-items: center;
-        }
-
-        /* Table Responsive */
-        .table-container {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            margin-bottom: 20px;
         }
 
         table {
             width: 100%;
-            min-width: 400px;
             border-collapse: collapse;
+            margin-bottom: 20px;
         }
 
         th {
             background: #667eea;
             color: white;
-            padding: 12px 8px;
+            padding: 12px;
             text-align: center;
             font-weight: 600;
-            font-size: clamp(0.85em, 2.5vw, 1em);
         }
 
         td {
-            padding: 10px 8px;
+            padding: 10px;
             text-align: center;
             border-bottom: 1px solid #ddd;
-            font-size: clamp(0.85em, 2.5vw, 1em);
         }
 
         .process-row {
@@ -120,9 +101,9 @@
 
         .controls {
             display: flex;
-            gap: 8px;
+            gap: 10px;
             justify-content: center;
-            margin-top: 15px;
+            margin-top: 20px;
             flex-wrap: wrap;
         }
 
@@ -130,17 +111,15 @@
             background: #667eea;
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 12px 30px;
             border-radius: 8px;
             cursor: pointer;
-            font-size: clamp(0.85em, 3vw, 1em);
+            font-size: 16px;
             font-weight: 600;
             transition: all 0.3s;
-            min-width: 120px;
-            white-space: nowrap;
         }
 
-        button:hover:not(:disabled) {
+        button:hover {
             background: #5568d3;
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
@@ -153,26 +132,24 @@
         }
 
         .gantt-chart {
-            margin: 20px 0;
-            padding: 15px;
+            margin: 30px 0;
+            padding: 20px;
             background: #f8f9fa;
             border-radius: 10px;
         }
 
         .gantt-title {
-            font-size: clamp(1.1em, 4vw, 1.5em);
+            font-size: 1.5em;
             font-weight: 600;
             color: #333;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
             text-align: center;
         }
 
         .gantt-container {
             display: flex;
             margin-bottom: 10px;
-            height: 50px;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
+            height: 60px;
         }
 
         .gantt-block {
@@ -184,73 +161,65 @@
             border-right: 2px solid white;
             transition: all 0.5s;
             position: relative;
-            font-size: clamp(0.75em, 2.5vw, 0.9em);
-            min-width: 40px;
+            font-size: 14px;
         }
 
         .gantt-time {
             display: flex;
             position: relative;
             height: 30px;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
         }
 
         .time-marker {
             position: absolute;
-            font-size: clamp(0.7em, 2vw, 0.85em);
+            font-size: 12px;
             color: #666;
             top: 5px;
         }
 
         .results {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 15px;
-            margin-top: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
         }
 
         .result-card {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
-            padding: 15px;
+            padding: 20px;
             border-radius: 10px;
             text-align: center;
             box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
         .result-value {
-            font-size: clamp(1.5em, 5vw, 2em);
+            font-size: 2em;
             font-weight: 700;
-            margin-top: 8px;
+            margin-top: 10px;
         }
 
         .result-label {
-            font-size: clamp(0.8em, 2.5vw, 0.9em);
+            font-size: 0.9em;
             opacity: 0.9;
         }
 
         .step-info {
             background: #e3f2fd;
-            padding: 12px;
+            padding: 15px;
             border-radius: 8px;
-            margin: 15px 0;
+            margin: 20px 0;
             border-left: 4px solid #2196f3;
         }
 
         .step-info h3 {
             color: #1976d2;
-            margin-bottom: 8px;
-            font-size: clamp(1em, 3.5vw, 1.2em);
-        }
-
-        .step-info p {
-            font-size: clamp(0.85em, 2.5vw, 1em);
+            margin-bottom: 10px;
         }
 
         .queue-display {
             display: flex;
-            gap: 8px;
+            gap: 10px;
             flex-wrap: wrap;
             margin-top: 10px;
         }
@@ -258,10 +227,9 @@
         .queue-item {
             background: #667eea;
             color: white;
-            padding: 6px 12px;
+            padding: 8px 15px;
             border-radius: 5px;
             font-weight: 600;
-            font-size: clamp(0.8em, 2.5vw, 0.9em);
         }
 
         .current-process {
@@ -276,29 +244,27 @@
 
         .legend {
             display: flex;
-            gap: 15px;
+            gap: 20px;
             justify-content: center;
-            margin-top: 15px;
+            margin-top: 20px;
             flex-wrap: wrap;
         }
 
         .legend-item {
             display: flex;
             align-items: center;
-            gap: 6px;
-            font-size: clamp(0.8em, 2.5vw, 0.9em);
+            gap: 8px;
         }
 
         .legend-color {
-            width: 25px;
-            height: 18px;
+            width: 30px;
+            height: 20px;
             border-radius: 4px;
-            flex-shrink: 0;
         }
 
         .process-status {
-            margin: 15px 0;
-            padding: 12px;
+            margin: 20px 0;
+            padding: 15px;
             background: #fff3cd;
             border-radius: 8px;
             border-left: 4px solid #ffc107;
@@ -307,7 +273,6 @@
         .process-status h3 {
             color: #856404;
             margin-bottom: 10px;
-            font-size: clamp(1em, 3.5vw, 1.2em);
         }
 
         .status-table {
@@ -316,9 +281,8 @@
         }
 
         .status-table td {
-            padding: 8px 5px;
+            padding: 5px;
             border: none;
-            font-size: clamp(0.8em, 2.5vw, 0.9em);
         }
 
         .preemption-alert {
@@ -329,7 +293,6 @@
             border-left: 4px solid #ff9800;
             color: #e65100;
             font-weight: 600;
-            font-size: clamp(0.85em, 2.5vw, 1em);
         }
 
         .detail-table {
@@ -344,12 +307,11 @@
         }
 
         input[type="number"] {
-            width: 70px;
-            padding: 8px 5px;
+            width: 80px;
+            padding: 5px;
             text-align: center;
             border: 1px solid #ddd;
             border-radius: 4px;
-            font-size: 14px;
         }
 
         input[type="number"]:focus {
@@ -359,16 +321,15 @@
 
         .info-box {
             background: #e8f5e9;
-            padding: 12px;
+            padding: 15px;
             border-radius: 8px;
-            margin: 15px 0;
+            margin: 20px 0;
             border-left: 4px solid #4caf50;
         }
 
         .info-box h3 {
             color: #2e7d32;
-            margin-bottom: 8px;
-            font-size: clamp(1em, 3.5vw, 1.2em);
+            margin-bottom: 10px;
         }
 
         .info-box ul {
@@ -378,83 +339,6 @@
 
         .info-box li {
             margin: 5px 0;
-            font-size: clamp(0.85em, 2.5vw, 1em);
-        }
-
-        /* Media Queries for specific breakpoints */
-        @media (max-width: 768px) {
-            .container {
-                padding: 12px;
-                border-radius: 10px;
-            }
-
-            button {
-                min-width: 100px;
-                padding: 8px 15px;
-            }
-
-            .controls {
-                gap: 6px;
-            }
-
-            th, td {
-                padding: 8px 5px;
-            }
-
-            .gantt-container {
-                height: 40px;
-            }
-
-            .result-card {
-                padding: 12px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            body {
-                padding: 5px;
-            }
-
-            .container {
-                padding: 10px;
-            }
-
-            .input-section {
-                padding: 12px;
-            }
-
-            button {
-                min-width: 90px;
-                padding: 8px 12px;
-            }
-
-            table {
-                min-width: 350px;
-            }
-
-            .results {
-                grid-template-columns: 1fr;
-            }
-
-            .info-box ul {
-                margin-left: 15px;
-            }
-        }
-
-        /* Landscape mobile optimization */
-        @media (max-height: 500px) and (orientation: landscape) {
-            h1 {
-                font-size: 1.5em;
-                margin-bottom: 5px;
-            }
-
-            .subtitle {
-                margin-bottom: 10px;
-            }
-
-            .info-box, .step-info, .process-status {
-                padding: 8px;
-            }
         }
     </style>
 </head>
@@ -477,30 +361,28 @@
             <h2>Nhập dữ liệu tiến trình</h2>
             <div class="input-group">
                 <label>Số lượng tiến trình:</label>
-                <div class="input-flex">
-                    <input type="number" id="numProcesses" min="1" max="10" value="4">
-                    <button onclick="generateProcessInputs()">Tạo bảng</button>
-                </div>
+                <input type="number" id="numProcesses" min="1" max="10" value="4">
+                <button onclick="generateProcessInputs()" style="margin-left: 10px; padding: 8px 20px;">
+                    Tạo bảng
+                </button>
             </div>
 
-            <div class="table-container">
-                <table id="processTable">
-                    <thead>
-                        <tr>
-                            <th>Tiến trình</th>
-                            <th>Arrival Time<br><span style="font-size: 0.85em;">Thời điểm đến</span></th>
-                            <th>Burst Time<br><span style="font-size: 0.85em;">Thời gian xử lý</span></th>
-                        </tr>
-                    </thead>
-                    <tbody id="processTableBody">
-                    </tbody>
-                </table>
-            </div>
+            <table id="processTable">
+                <thead>
+                    <tr>
+                        <th>Tiến trình</th>
+                        <th>Arrival Time (AT)<br><span style="font-size: 0.9em;">Thời điểm đến</span></th>
+                        <th>Burst Time (BT)<br><span style="font-size: 0.9em;">Thời gian xử lý</span></th>
+                    </tr>
+                </thead>
+                <tbody id="processTableBody">
+                </tbody>
+            </table>
 
             <div class="controls">
-                <button id="startBtn" onclick="startSimulation()">▶ Bắt đầu</button>
-                <button id="stepBtn" onclick="nextStep()" disabled>➡ Bước tiếp</button>
-                <button id="autoBtn" onclick="autoRun()" disabled>⏩ Tự động</button>
+                <button id="startBtn" onclick="startSimulation()">▶ Bắt đầu mô phỏng</button>
+                <button id="stepBtn" onclick="nextStep()" disabled>➡ Bước tiếp theo</button>
+                <button id="autoBtn" onclick="autoRun()" disabled>⏩ Chạy tự động</button>
                 <button id="resetBtn" onclick="resetSimulation()">🔄 Làm lại</button>
             </div>
         </div>
@@ -514,10 +396,8 @@
 
         <div class="process-status" id="processStatus" style="display: none;">
             <h3>📊 Trạng thái các tiến trình</h3>
-            <div class="table-container">
-                <table class="status-table" id="statusTable">
-                </table>
-            </div>
+            <table class="status-table" id="statusTable">
+            </table>
         </div>
 
         <div class="gantt-chart" id="ganttChart" style="display: none;">
@@ -533,7 +413,7 @@
                 <div class="result-value" id="avgWaitingTime">0</div>
             </div>
             <div class="result-card">
-                <div class="result-label">Thời gian hoàn thành TB</div>
+                <div class="result-label">Thời gian hoàn thành trung bình</div>
                 <div class="result-value" id="avgTurnaroundTime">0</div>
             </div>
             <div class="result-card">
@@ -543,22 +423,20 @@
         </div>
 
         <div class="detail-table" id="detailTable" style="display: none;">
-            <div class="table-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Tiến trình</th>
-                            <th>AT</th>
-                            <th>BT</th>
-                            <th>CT</th>
-                            <th>TAT</th>
-                            <th>WT</th>
-                        </tr>
-                    </thead>
-                    <tbody id="detailTableBody">
-                    </tbody>
-                </table>
-            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tiến trình</th>
+                        <th>Arrival Time</th>
+                        <th>Burst Time</th>
+                        <th>Completion Time</th>
+                        <th>Turnaround Time</th>
+                        <th>Waiting Time</th>
+                    </tr>
+                </thead>
+                <tbody id="detailTableBody">
+                </tbody>
+            </table>
         </div>
     </div>
 
@@ -655,7 +533,7 @@
             preemptionCounter = 0;
             
             updateLegend();
-            updateStepInfo("Bắt đầu thuật toán SRTN. Nhấn 'Bước tiếp' để xem từng bước hoặc 'Tự động'.");
+            updateStepInfo("Bắt đầu thuật toán SRTN. Nhấn 'Bước tiếp theo' để xem từng bước hoặc 'Chạy tự động'.");
             updateProcessStatus();
         }
 
@@ -665,6 +543,7 @@
                 return;
             }
 
+            // Lấy các tiến trình đã đến
             readyQueue = processes.filter(p => 
                 p.at <= currentTime && !p.completed
             );
@@ -676,15 +555,17 @@
                 return;
             }
 
+            // Sắp xếp theo thời gian còn lại (SRTN)
             readyQueue.sort((a, b) => {
                 if (a.remainingTime === b.remainingTime) {
-                    return a.at - b.at;
+                    return a.at - b.at; // Nếu bằng nhau, ưu tiên tiến trình đến trước
                 }
                 return a.remainingTime - b.remainingTime;
             });
 
             let selectedProcess = readyQueue[0];
             
+            // Kiểm tra preemption
             let lastGantt = ganttChart[ganttChart.length - 1];
             if (lastGantt && lastGantt.id !== selectedProcess.id && lastGantt.end === currentTime) {
                 preemptionCounter++;
@@ -694,12 +575,15 @@
                 document.getElementById('preemptionAlert').innerHTML = '';
             }
 
+            // Ghi nhận thời gian bắt đầu
             if (selectedProcess.startTime === -1) {
                 selectedProcess.startTime = currentTime;
             }
 
+            // Thực thi 1 đơn vị thời gian
             selectedProcess.remainingTime--;
 
+            // Cập nhật Gantt chart
             if (lastGantt && lastGantt.id === selectedProcess.id) {
                 lastGantt.end = currentTime + 1;
             } else {
@@ -713,6 +597,7 @@
 
             currentTime++;
 
+            // Kiểm tra hoàn thành
             if (selectedProcess.remainingTime === 0) {
                 selectedProcess.completed = true;
                 selectedProcess.completionTime = currentTime;
@@ -729,7 +614,7 @@
                 });
 
                 updateStepInfo(`✅ ${selectedProcess.id} hoàn thành tại thời gian ${currentTime}! 
-                    TAT = ${turnaroundTime}, WT = ${waitingTime}`);
+                    Turnaround Time = ${turnaroundTime}, Waiting Time = ${waitingTime}`);
             } else {
                 updateStepInfo(`⚙️ Thực thi ${selectedProcess.id} tại thời gian ${currentTime - 1}→${currentTime}. 
                     Thời gian còn lại = ${selectedProcess.remainingTime}`);
@@ -761,7 +646,7 @@
 
         function updateQueue() {
             let queueDisplay = document.getElementById('queueDisplay');
-            queueDisplay.innerHTML = '<strong>Hàng đợi (sắp xếp theo RT):</strong> ';
+            queueDisplay.innerHTML = '<strong>Hàng đợi sẵn sàng (sắp xếp theo Remaining Time):</strong> ';
             
             let ready = processes.filter(p => !p.completed && p.at <= currentTime);
             ready.sort((a, b) => a.remainingTime - b.remainingTime);
@@ -874,6 +759,7 @@
                 (totalTurnaroundTime / processes.length).toFixed(2);
             document.getElementById('preemptionCount').textContent = preemptionCounter;
 
+            // Hiển thị bảng chi tiết
             let tbody = document.getElementById('detailTableBody');
             tbody.innerHTML = '';
             completed.forEach(p => {
@@ -882,3 +768,44 @@
                     <td><strong>${p.id}</strong></td>
                     <td>${p.at}</td>
                     <td>${p.bt}</td>
+                    <td>${p.ct}</td>
+                    <td>${p.tat}</td>
+                    <td>${p.wt}</td>
+                `;
+            });
+
+            updateStepInfo('🎉 Hoàn thành! Tất cả tiến trình đã được xử lý bằng thuật toán SRTN.');
+        }
+
+        function resetSimulation() {
+            if (autoRunInterval) {
+                clearInterval(autoRunInterval);
+                autoRunInterval = null;
+            }
+
+            currentTime = 0;
+            completed = [];
+            ganttChart = [];
+            readyQueue = [];
+            isRunning = false;
+            preemptionCounter = 0;
+
+            document.querySelectorAll('.at-input, .bt-input').forEach(input => {
+                input.disabled = false;
+            });
+            document.getElementById('numProcesses').disabled = false;
+
+            document.getElementById('startBtn').disabled = false;
+            document.getElementById('stepBtn').disabled = true;
+            document.getElementById('autoBtn').disabled = true;
+            document.getElementById('stepInfo').style.display = 'none';
+            document.getElementById('processStatus').style.display = 'none';
+            document.getElementById('ganttChart').style.display = 'none';
+            document.getElementById('results').style.display = 'none';
+            document.getElementById('detailTable').style.display = 'none';
+            document.getElementById('ganttContainer').innerHTML = '';
+            document.getElementById('ganttTime').innerHTML = '';
+        }
+    </script>
+</body>
+</html>
